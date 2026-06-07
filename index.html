@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Koventra Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:       #080c18;
+    --navy-mid:   #0f1422;
+    --navy-card:  #131929;
+    --navy-hover: #1a2235;
+    --gold:       #c9a84c;
+    --gold-dim:   #a8873a;
+    --gold-pale:  rgba(201,168,76,0.12);
+    --white:      #f0ede8;
+    --muted:      #7a8ba8;
+    --border:     rgba(201,168,76,0.14);
+    --border-dim: rgba(255,255,255,0.06);
+    --font-d: 'Cormorant Garamond', serif;
+    --font-b: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--navy);
+    color: var(--white);
+    font-family: var(--font-b);
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 6vw; height: 64px;
+    background: rgba(8,12,24,0.88);
+    backdrop-filter: blur(16px);
+    border-bottom: 0.5px solid var(--border);
+    transition: height 0.3s;
+  }
+  nav.compact { height: 52px; }
+
+  .logo {
+    font-family: var(--font-d); font-size: 1.45rem; font-weight: 500;
+    letter-spacing: 0.05em; color: var(--white); text-decoration: none;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .logo-dot { color: var(--gold); }
+
+  nav ul { list-style: none; display: flex; align-items: center; gap: 2.2rem; }
+  nav ul a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.82rem; letter-spacing: 0.09em; text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  nav ul a:hover { color: var(--white); }
+  .nav-pill {
+    color: var(--gold) !important;
+    border: 0.5px solid var(--gold);
+    padding: 0.35rem 1rem; border-radius: 2px;
+    transition: background 0.2s, color 0.2s !important;
+  }
+  .nav-pill:hover { background: var(--gold) !important; color: var(--navy) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 6vw 7rem;
+    position: relative; overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 60% 20%, rgba(201,168,76,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* subtle grid lines */
+  .hero-grid {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 80px 80px;
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 40%, transparent 100%);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.8rem;
+    opacity: 0; animation: up 0.7s ease forwards 0.15s;
+  }
+
+  .hero h1 {
+    font-family: var(--font-d);
+    font-size: clamp(3.8rem, 9vw, 8.5rem);
+    font-weight: 300; line-height: 1.02; letter-spacing: -0.015em;
+    max-width: 900px;
+    opacity: 0; animation: up 0.8s ease forwards 0.3s;
+  }
+  .hero h1 em { font-style: italic; color: var(--gold); }
+
+  .hero-sub {
+    font-size: 1.05rem; color: var(--muted);
+    max-width: 500px; margin-top: 2rem; line-height: 1.85;
+    opacity: 0; animation: up 0.8s ease forwards 0.5s;
+  }
+
+  .hero-row {
+    display: flex; align-items: center; gap: 1.2rem; margin-top: 2.8rem;
+    opacity: 0; animation: up 0.8s ease forwards 0.65s;
+  }
+
+  .btn-gold {
+    background: var(--gold); color: var(--navy);
+    padding: 0.8rem 2rem; border: none; border-radius: 2px;
+    font-family: var(--font-b); font-size: 0.82rem; font-weight: 500;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; transition: background 0.2s;
+  }
+  .btn-gold:hover { background: #d4b45a; }
+
+  .btn-outline {
+    background: transparent; color: var(--white);
+    padding: 0.8rem 2rem; border: 0.5px solid rgba(240,237,232,0.22);
+    border-radius: 2px; font-family: var(--font-b); font-size: 0.82rem;
+    font-weight: 300; letter-spacing: 0.08em; text-transform: uppercase;
+    text-decoration: none; cursor: pointer; transition: border-color 0.2s;
+  }
+  .btn-outline:hover { border-color: rgba(240,237,232,0.55); }
+
+  .hero-divider {
+    display: flex; gap: 4rem; margin-top: 5rem;
+    padding-top: 2.5rem; border-top: 0.5px solid var(--border);
+    opacity: 0; animation: up 0.8s ease forwards 0.85s;
+  }
+  .stat-n {
+    font-family: var(--font-d); font-size: 3rem;
+    font-weight: 300; color: var(--white); display: block; line-height: 1;
+  }
+  .stat-l {
+    display: block; margin-top: 0.4rem;
+    font-size: 0.75rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted);
+  }
+
+  /* ── SECTIONS ── */
+  .sec { padding: 7rem 6vw; }
+  .sec-tag {
+    font-size: 0.73rem; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1rem;
+  }
+  .sec-title {
+    font-family: var(--font-d);
+    font-size: clamp(2.4rem, 4.5vw, 4rem);
+    font-weight: 300; line-height: 1.08;
+  }
+  .sec-title em { font-style: italic; color: var(--gold); }
+
+  /* ── MISSION ── */
+  .mission { background: var(--navy-mid); border-top: 0.5px solid var(--border); }
+  .mission-wrap {
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: 7rem; align-items: center;
+  }
+  .mission-body {
+    color: var(--muted); font-size: 0.95rem; line-height: 1.95; margin-top: 1.4rem;
+  }
+
+  .pillars {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--border);
+  }
+  .pillar {
+    background: var(--navy-card); padding: 1.8rem 1.6rem;
+    transition: background 0.25s;
+  }
+  .pillar:hover { background: var(--navy-hover); }
+  .p-num {
+    font-family: var(--font-d); font-size: 1.8rem;
+    color: var(--gold); opacity: 0.4; display: block; margin-bottom: 0.6rem;
+  }
+  .p-title { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .p-body { font-size: 0.82rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── ECOSYSTEM ── */
+  .eco-head {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem;
+  }
+  .eco-note { font-size: 0.83rem; color: var(--muted); max-width: 280px; text-align: right; line-height: 1.7; }
+
+  /* OpenAI-style product grid */
+  .products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border-dim);
+    border: 1px solid var(--border-dim);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .pc {
+    background: var(--navy-card);
+    padding: 2.4rem 2.2rem 2rem;
+    display: flex; flex-direction: column;
+    position: relative; overflow: hidden;
+    transition: background 0.25s;
+    cursor: default;
+  }
+
+  /* featured card (Lex AI) */
+  .pc.featured {
+    grid-column: span 2;
+    background: var(--navy-hover);
+  }
+  .pc.featured::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--gold) 0%, transparent 100%);
+  }
+
+  .pc:hover { background: var(--navy-hover); }
+  .pc.coming { opacity: 0.38; pointer-events: none; }
+
+  .pc-badge {
+    display: inline-block;
+    font-size: 0.68rem; letter-spacing: 0.16em; text-transform: uppercase;
+    padding: 0.22rem 0.65rem; border-radius: 2px;
+    background: var(--gold-pale); color: var(--gold);
+    margin-bottom: 1.5rem; align-self: flex-start;
+  }
+  .pc-badge.live { background: rgba(34,197,94,0.1); color: #4ade80; }
+  .pc-badge.soon { background: rgba(255,255,255,0.05); color: var(--muted); }
+
+  .pc-icon {
+    width: 44px; height: 44px; border-radius: 6px;
+    border: 0.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--font-d); font-size: 1.05rem;
+    color: var(--gold); margin-bottom: 1.4rem;
+    background: rgba(201,168,76,0.06);
+    flex-shrink: 0;
+  }
+
+  .pc-name {
+    font-family: var(--font-d); font-size: 1.7rem; font-weight: 400;
+    margin-bottom: 0.6rem; line-height: 1.1;
+  }
+  .pc.featured .pc-name { font-size: 2.2rem; }
+
+  .pc-desc {
+    font-size: 0.85rem; color: var(--muted); line-height: 1.8; flex: 1;
+  }
+
+  .pc-features {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem;
+  }
+  .pc-feat {
+    font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.2rem 0.6rem; border: 0.5px solid var(--border); border-radius: 2px;
+    color: var(--muted);
+  }
+
+  .pc-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 1.8rem; font-size: 0.78rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--gold); text-decoration: none;
+    align-self: flex-start;
+    border-bottom: 0.5px solid transparent;
+    transition: border-color 0.2s, gap 0.2s;
+  }
+  .pc-link:hover { border-color: var(--gold); gap: 10px; }
+
+  /* ── WHY ── */
+  .why { background: var(--navy-mid); border-top: 0.5px solid var(--border); }
+  .why-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0px; margin-top: 4rem;
+    border: 0.5px solid var(--border-dim); background: var(--border-dim);
+  }
+  .why-item {
+    background: var(--navy-card); padding: 2.2rem 1.8rem;
+    transition: background 0.25s;
+  }
+  .why-item:hover { background: var(--navy-hover); }
+  .why-n {
+    font-family: var(--font-d); font-size: 3.2rem; font-weight: 300;
+    color: var(--gold); opacity: 0.3; line-height: 1; margin-bottom: 1rem;
+  }
+  .why-t { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.05em; margin-bottom: 0.5rem; }
+  .why-b { font-size: 0.82rem; color: var(--muted); line-height: 1.75; }
+
+  /* ── CTA ── */
+  .cta {
+    text-align: center; padding: 9rem 6vw;
+    border-top: 0.5px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute; top: -40%; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,168,76,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta h2 {
+    font-family: var(--font-d);
+    font-size: clamp(3rem, 5.5vw, 5.5rem);
+    font-weight: 300; line-height: 1.08; max-width: 740px; margin: 0 auto 2.8rem;
+  }
+  .cta h2 em { font-style: italic; color: var(--gold); }
+  .cta-btns { display: flex; gap: 1rem; justify-content: center; }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 4.5rem 6vw;
+    border-top: 0.5px solid var(--border);
+    display: grid;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr;
+    gap: 4rem;
+  }
+  .f-tag { color: var(--white); text-decoration: none; }
+  .f-about {
+    font-size: 0.82rem; color: var(--muted); line-height: 1.8;
+    margin-top: 1rem; max-width: 200px;
+  }
+  .f-col h4 {
+    font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 1.2rem;
+  }
+  .f-col ul { list-style: none; }
+  .f-col ul li { margin-bottom: 0.65rem; }
+  .f-col ul a {
+    text-decoration: none; color: var(--muted);
+    font-size: 0.83rem; transition: color 0.2s;
+  }
+  .f-col ul a:hover { color: var(--white); }
+
+  .foot-btm {
+    padding: 1.6rem 6vw;
+    border-top: 0.5px solid var(--border-dim);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .foot-btm p { font-size: 0.76rem; color: var(--muted); }
+
+  /* ── REVEAL ── */
+  .r {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity 0.75s ease, transform 0.75s ease;
+  }
+  .r.on { opacity: 1; transform: none; }
+
+  @keyframes up {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  ::-webkit-scrollbar { width: 3px; }
+  ::-webkit-scrollbar-track { background: var(--navy); }
+  ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .mission-wrap { grid-template-columns: 1fr; gap: 3rem; }
+    .products { grid-template-columns: 1fr; }
+    .pc.featured { grid-column: span 1; }
+    .why-grid { grid-template-columns: 1fr 1fr; }
+    footer { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
+  }
+  @media (max-width: 600px) {
+    nav ul { display: none; }
+    .hero h1 { font-size: 3rem; }
+    .hero-divider { flex-wrap: wrap; gap: 2rem; }
+    .why-grid { grid-template-columns: 1fr; }
+    footer { grid-template-columns: 1fr; }
+    .foot-btm { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="logo f-tag">Koventra<span class="logo-dot">.</span></a>
+  <ul>
+    <li><a href="#mission">About</a></li>
+    <li><a href="#ecosystem">Products</a></li>
+    <li><a href="#why">Why Us</a></li>
+    <li><a href="#careers">Careers</a></li>
+    <li><a href="#contact" class="nav-pill">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <p class="hero-eyebrow">Koventra Systems</p>
+  <h1>Building the <em>intelligence</em><br>layer for modern industry</h1>
+  <p class="hero-sub">We design, build, and scale technology products that solve hard problems — across AI, legal tech, SaaS, and enterprise software.</p>
+  <div class="hero-row">
+    <a href="#ecosystem" class="btn-gold">Explore Products</a>
+    <a href="#mission" class="btn-outline">Our Mission</a>
+  </div>
+  <div class="hero-divider">
+    <div>
+      <span class="stat-n">1+</span>
+      <span class="stat-l">Live products</span>
+    </div>
+    <div>
+      <span class="stat-n">3</span>
+      <span class="stat-l">Industry verticals</span>
+    </div>
+    <div>
+      <span class="stat-n">∞</span>
+      <span class="stat-l">Problems left to solve</span>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission sec" id="mission">
+  <div class="mission-wrap">
+    <div>
+      <p class="sec-tag r">Who We Are</p>
+      <h2 class="sec-title r">A systems company<br>that <em>builds to last</em></h2>
+      <p class="mission-body r">
+        Koventra Systems is the parent organization behind a growing portfolio of technology ventures. We don't build features — we build companies. Each product under our umbrella is designed with a singular focus, long-term capital, and a mandate to lead its category.
+        <br><br>
+        From legal intelligence to enterprise cloud infrastructure, our ventures share a common foundation: precision engineering, deep domain expertise, and the conviction that great software changes how industries operate.
+      </p>
+    </div>
+    <div class="pillars r">
+      <div class="pillar">
+        <span class="p-num">01</span>
+        <p class="p-title">Build with precision</p>
+        <p class="p-body">Every decision is deliberate. We ship software that is engineered to last, not shipped to impress.</p>
+      </div>
+      <div class="pillar">
+        <span class="p-num">02</span>
+        <p class="p-title">Think at scale</p>
+        <p class="p-body">Our products are designed from day one to serve thousands of teams, not a handful of early adopters.</p>
+      </div>
+      <div class="pillar">
+        <span class="p-num">03</span>
+        <p class="p-title">Move with purpose</p>
+        <p class="p-body">We move fast but deliberately — shipping what matters, cutting what doesn't.</p>
+      </div>
+      <div class="pillar">
+        <span class="p-num">04</span>
+        <p class="p-title">Own the future</p>
+        <p class="p-body">We're not building for today's market. We're building for the world five years from now.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="sec" id="ecosystem">
+  <div class="eco-head r">
+    <div>
+      <p class="sec-tag">The Ecosystem</p>
+      <h2 class="sec-title">Products built under<br>the <em>Koventra</em> umbrella</h2>
+    </div>
+    <p class="eco-note">A growing portfolio of focused products, each solving a specific problem at industry scale.</p>
+  </div>
+
+  <div class="products r">
+
+    <!-- LEX AI — featured, real product -->
+    <div class="pc featured">
+      <span class="pc-badge live">● Live</span>
+      <div class="pc-icon">Lx</div>
+      <h3 class="pc-name">Lex AI</h3>
+      <p class="pc-desc">
+        An AI-powered legal workspace built for modern legal teams. Lex AI handles clause extraction, contract risk scoring, intelligent drafting, and real-time collaborative document review — turning weeks of legal work into hours.
+      </p>
+      <div class="pc-features">
+        <span class="pc-feat">Clause Extraction</span>
+        <span class="pc-feat">Risk Scoring</span>
+        <span class="pc-feat">Contract Drafting</span>
+        <span class="pc-feat">Collaborative Review</span>
+        <span class="pc-feat">Legal Intelligence</span>
+      </div>
+      <a href="https://ailex.space" target="_blank" class="pc-link">Visit ailex.space →</a>
+    </div>
+
+    <!-- PRODUCT 2 -->
+    <div class="pc">
+      <span class="pc-badge soon">In Development</span>
+      <div class="pc-icon">K2</div>
+      <h3 class="pc-name">Product Two</h3>
+      <p class="pc-desc">The next product in the Koventra ecosystem is taking shape. Built on the same foundation of precision and scale.</p>
+      <a href="#contact" class="pc-link">Get notified →</a>
+    </div>
+
+    <!-- PRODUCT 3 -->
+    <div class="pc">
+      <span class="pc-badge soon">In Development</span>
+      <div class="pc-icon">K3</div>
+      <h3 class="pc-name">Product Three</h3>
+      <p class="pc-desc">Another focused venture is in build. Our pipeline is full — and every product ships when it's ready, not before.</p>
+      <a href="#contact" class="pc-link">Stay updated →</a>
+    </div>
+
+    <!-- COMING SOON SLOTS -->
+    <div class="pc coming">
+      <span class="pc-badge soon">Coming Soon</span>
+      <div class="pc-icon">—</div>
+      <h3 class="pc-name">Unannounced</h3>
+      <p class="pc-desc">Something new is being built inside Koventra. Details to follow.</p>
+    </div>
+
+    <div class="pc coming">
+      <span class="pc-badge soon">Coming Soon</span>
+      <div class="pc-icon">—</div>
+      <h3 class="pc-name">Unannounced</h3>
+      <p class="pc-desc">The ecosystem keeps growing. More ventures are always in the pipeline.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY KOVENTRA -->
+<section class="why sec" id="why">
+  <p class="sec-tag r">Why Koventra</p>
+  <h2 class="sec-title r">What sets us apart</h2>
+  <div class="why-grid r">
+    <div class="why-item">
+      <div class="why-n">01</div>
+      <p class="why-t">Deep domain focus</p>
+      <p class="why-b">Each product is backed by real research and domain expertise — not trend-chasing. We go deep before we go wide.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-n">02</div>
+      <p class="why-t">Unified infrastructure</p>
+      <p class="why-b">Our products share a common technical foundation — faster development, better security, compounding knowledge.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-n">03</div>
+      <p class="why-t">Long-term conviction</p>
+      <p class="why-b">Koventra is built to last decades. We measure success in years — and every product decision reflects that.</p>
+    </div>
+    <div class="why-item">
+      <div class="why-n">04</div>
+      <p class="why-t">People first, always</p>
+      <p class="why-b">Every tool we build is designed around how people actually work — intuitive by default, powerful when needed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="careers">
+  <h2 class="r">Want to build what<br>comes <em>next</em> with us?</h2>
+  <div class="cta-btns r">
+    <a href="mailto:careers@koventrasystems.com" class="btn-gold">View Open Roles</a>
+    <a href="#contact" class="btn-outline">Get in Touch</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div>
+    <a href="#" class="logo f-tag">Koventra<span class="logo-dot">.</span></a>
+    <p class="f-about">Building intelligent systems and scalable technology for the world of tomorrow.</p>
+  </div>
+  <div class="f-col">
+    <h4>Company</h4>
+    <ul>
+      <li><a href="#mission">About</a></li>
+      <li><a href="#why">Our Values</a></li>
+      <li><a href="#careers">Careers</a></li>
+      <li><a href="#">Press</a></li>
+    </ul>
+  </div>
+  <div class="f-col">
+    <h4>Products</h4>
+    <ul>
+      <li><a href="https://ailex.space" target="_blank">Lex AI</a></li>
+      <li><a href="#">Product Two</a></li>
+      <li><a href="#">Product Three</a></li>
+      <li><a href="#">Roadmap</a></li>
+    </ul>
+  </div>
+  <div class="f-col">
+    <h4>Contact</h4>
+    <ul>
+      <li><a href="mailto:hello@koventrasystems.com">hello@koventrasystems.com</a></li>
+      <li><a href="#">LinkedIn</a></li>
+      <li><a href="#">Twitter / X</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+    </ul>
+  </div>
+</footer>
+
+<div class="foot-btm">
+  <p>© 2025 Koventra Systems. All rights reserved.</p>
+  <p>Built with precision.</p>
+</div>
+
+<script>
+  // scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.r').forEach(el => obs.observe(el));
+
+  // nav compact on scroll
+  const navEl = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    navEl.classList.toggle('compact', window.scrollY > 60);
+  });
+</script>
+</body>
+</html>
