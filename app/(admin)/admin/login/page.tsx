@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -47,8 +48,17 @@ export default function LoginPage() {
       {/* Background Gold Ambient Glow */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-gold via-gold-dim to-transparent" />
 
-      {/* Brand Wordmark */}
-      <div className="text-center mb-8">
+      {/* Brand Wordmark with Logo */}
+      <div className="text-center mb-8 flex flex-col items-center">
+        <div className="relative w-16 h-16 rounded-[8px] border border-border bg-gold/5 flex items-center justify-center overflow-hidden mb-4 select-none">
+          <Image
+            src="/logo.png"
+            alt="Koventra Systems Logo"
+            fill
+            unoptimized
+            className="object-cover scale-[1.35]"
+          />
+        </div>
         <h1 className="font-display text-3xl font-light text-white mb-2 tracking-wide">
           Koventra Systems
         </h1>

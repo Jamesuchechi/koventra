@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { NAV_LINKS, CONTACT_LINK } from '@/lib/constants';
 
 export default function Navbar() {
@@ -26,8 +27,17 @@ export default function Navbar() {
         }`}
       >
         {/* Logo */}
-        <Link href="/" className="font-display text-[1.45rem] font-medium tracking-[0.05em] text-white flex items-center gap-1.5 hover:opacity-90 transition-opacity">
-          Koventra<span className="text-gold">.</span>
+        <Link href="/" className="font-display text-[1.45rem] font-medium tracking-[0.05em] text-white flex items-center gap-2.5 hover:opacity-90 transition-opacity">
+          <div className="relative w-7 h-7 rounded-[4px] border border-gold/20 bg-gold/5 flex items-center justify-center overflow-hidden shrink-0">
+            <Image
+              src="/logo.png"
+              alt="Koventra"
+              fill
+              unoptimized
+              className="object-cover scale-[1.35]"
+            />
+          </div>
+          <span>Koventra<span className="text-gold">.</span></span>
         </Link>
 
         {/* Desktop Navigation */}

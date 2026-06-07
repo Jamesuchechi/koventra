@@ -134,7 +134,7 @@
 
 ---
 
-## Phase 6 — Product Sub-Pages (Per Product)
+## Phase 6 — Product Sub-Pages (Per Product) (✅ Done)
 > Goal: Each Koventra product gets its own page on koventrasystems.com.
 
 - [x] Define product page template (reusable layout)
@@ -144,16 +144,16 @@
 
 ---
 
-## Phase 7 — Animations & Polish
+## Phase 7 — Animations & Polish (✅ Done)
 > Goal: Elevate from functional to memorable.
 
-- [ ] Install Framer Motion
-- [ ] Staggered hero entrance animation
-- [ ] Scroll-reveal for all sections
-- [ ] Product card hover states (underline sweep, subtle lift)
-- [ ] Nav scroll-shrink behavior (larger → compact on scroll)
-- [ ] Page transitions (optional)
-- [ ] Loading skeleton states (if any dynamic data)
+- [x] Install Framer Motion
+- [x] Staggered hero entrance animation
+- [x] Scroll-reveal for all sections
+- [x] Product card hover states (underline sweep, subtle lift)
+- [x] Nav scroll-shrink behavior (larger → compact on scroll)
+- [x] Page transitions (optional)
+- [x] Loading skeleton states (if any dynamic data)
 
 ---
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FOOTER_COLUMNS } from '@/lib/constants';
 
 export default function Footer() {
@@ -11,8 +12,17 @@ export default function Footer() {
       <div className="py-18 px-[6vw] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-[1.6fr_1fr_1fr_1fr] gap-12 md:gap-16">
         {/* Brand/About Col */}
         <div className="space-y-4">
-          <Link href="/" className="font-display text-[1.45rem] font-medium tracking-[0.05em] text-white flex items-center gap-1.5 select-none">
-            Koventra<span className="text-gold">.</span>
+          <Link href="/" className="font-display text-[1.45rem] font-medium tracking-[0.05em] text-white flex items-center gap-2.5 select-none">
+            <div className="relative w-7 h-7 rounded-[4px] border border-gold/20 bg-gold/5 flex items-center justify-center overflow-hidden shrink-0">
+              <Image
+                src="/logo.png"
+                alt="Koventra"
+                fill
+                unoptimized
+                className="object-cover scale-[1.35]"
+              />
+            </div>
+            <span>Koventra<span className="text-gold">.</span></span>
           </Link>
           <p className="font-body text-[0.82rem] text-muted leading-[1.8] max-w-[200px] font-light">
             Building intelligent systems and scalable technology for the world of tomorrow.

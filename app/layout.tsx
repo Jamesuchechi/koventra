@@ -37,7 +37,12 @@ const bodyFont = localFont({
 export const metadata: Metadata = {
   title: 'Koventra Systems — Brand Hub & Product Ecosystem',
   description: 'The parent organization and ecosystem portal for Koventra Systems portfolio products.',
+  icons: {
+    icon: '/icon.png',
+    apple: '/icon.png',
+  },
 };
+
 
 export default function RootLayout({
   children,
