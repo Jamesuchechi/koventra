@@ -30,8 +30,8 @@
 ## Phase 2 — React / Next.js Setup
 > Goal: Scaffold the production codebase.
 
-- [ ] Initialize Next.js 14+ project (App Router)
-- [ ] Set up folder structure:
+- [x] Initialize Next.js 14+ project (App Router)
+- [x] Set up folder structure:
   ```
   /app
     /page.tsx          ← Home
@@ -60,86 +60,87 @@
     globals.css
     tokens.css         ← CSS variables (colors, fonts)
   ```
-- [ ] Install and configure Tailwind CSS (or keep custom CSS)
-- [ ] Set up Google Fonts (Cormorant Garamond + DM Sans)
-- [ ] Configure `next/font` for performance
-- [ ] Set up ESLint + Prettier
+- [x] Install and configure Tailwind CSS (or keep custom CSS)
+- [x] Set up Google Fonts (Cormorant Garamond + DM Sans)
+- [x] Configure `next/font` for performance
+- [x] Set up ESLint + Prettier
 
 ---
 
-## Phase 3 — Component Decoupling
+## Phase 3 — Component Decoupling (✅ Done)
 > Goal: Convert every HTML section into a reusable React component.
 
-- [ ] `Navbar` — fixed nav with blur backdrop, mobile hamburger
-- [ ] `Hero` — animated headline, stats bar, CTA buttons
-- [ ] `Mission` — 2-col layout with pillar grid
-- [ ] `Ecosystem` — product card grid (data-driven from constants.ts)
-- [ ] `ProductCard` — reusable card component, accepts product props
-- [ ] `WhyKoventra` — 4-item differentiator grid
-- [ ] `CTABand` — full-width call-to-action section
-- [ ] `Footer` — multi-column footer with links
-- [ ] `SectionReveal` — scroll-triggered animation wrapper (Intersection Observer or Framer Motion)
+- [x] `Navbar` — fixed nav with blur backdrop, mobile hamburger
+- [x] `Hero` — animated headline, stats bar, CTA buttons
+- [x] `Mission` — 2-col layout with pillar grid
+- [x] `Ecosystem` — product card grid (data-driven from constants.ts)
+- [x] `ProductCard` — reusable card component, accepts product props
+- [x] `WhyKoventra` — 4-item differentiator grid
+- [x] `CTABand` — full-width call-to-action section
+- [x] `Footer` — multi-column footer with links
+- [x] `SectionReveal` — scroll-triggered animation wrapper (Intersection Observer or Framer Motion)
+
 
 ---
 
 ## Phase 4 — Admin Panel
 > Goal: Build the protected admin panel so all content is DB-driven, not hardcoded.
 
-- [ ] Auth — `/admin/login` page + NextAuth credentials provider
-- [ ] Middleware — protect all `/admin/*` and API write routes
-- [ ] `create-admin.ts` script — CLI tool to create the first admin user
-- [ ] Admin layout — sidebar nav + topbar shell
-- [ ] Dashboard — stats overview (product count, jobs, press, recent activity)
-- [ ] **Products CRUD**
-  - [ ] List page — table with status badges, sort order, visibility toggle
-  - [ ] New product form — all fields, image upload, feature chips
-  - [ ] Edit product form — prefilled, live slug preview
-  - [ ] Delete with confirmation modal
-- [ ] **Team CRUD**
-  - [ ] List + reorder
-  - [ ] Add/edit member — name, role, bio, photo, links
-- [ ] **Jobs CRUD**
-  - [ ] List with status filter (Open / Closed / Draft)
-  - [ ] Post new job — title, team, location, type, description, apply URL
-  - [ ] Close / reopen job
-- [ ] **Press CRUD**
-  - [ ] Add press entry — headline, publication, URL, date, logo
-  - [ ] Toggle featured
-- [ ] **Site Settings page**
-  - [ ] Hero tagline, hero subtitle
-  - [ ] Stats numbers and labels
-  - [ ] Mission body copy
-  - [ ] Default OG image
-- [ ] Image upload integration (Cloudinary or Vercel Blob)
-- [ ] Form validation with Zod on all admin forms
-- [ ] Admin panel responsive (usable on tablet minimum)
+- [x] Auth — `/admin/login` page + NextAuth credentials provider
+- [x] Middleware — protect all `/admin/*` and API write routes
+- [x] `create-admin.ts` script — CLI tool to create the first admin user
+- [x] Admin layout — sidebar nav + topbar shell
+- [x] Dashboard — stats overview (product count, jobs, press, recent activity)
+- [x] **Products CRUD**
+  - [x] List page — table with status badges, sort order, visibility toggle
+  - [x] New product form — all fields, image upload, feature chips
+  - [x] Edit product form — prefilled, live slug preview
+  - [x] Delete with confirmation modal
+- [x] **Team CRUD**
+  - [x] List + reorder
+  - [x] Add/edit member — name, role, bio, photo, links
+- [x] **Jobs CRUD**
+  - [x] List with status filter (Open / Closed / Draft)
+  - [x] Post new job — title, team, location, type, description, apply URL
+  - [x] Close / reopen job
+- [x] **Press CRUD**
+  - [x] Add press entry — headline, publication, URL, date, logo
+  - [x] Toggle featured
+- [x] **Site Settings page**
+  - [x] Hero tagline, hero subtitle
+  - [x] Stats numbers and labels
+  - [x] Mission body copy
+  - [x] Default OG image
+- [x] Image upload integration (Cloudinary or Vercel Blob)
+- [x] Form validation with Zod on all admin forms
+- [x] Admin panel responsive (usable on tablet minimum)
 
 ---
 
 ## Phase 5 — Individual Public Pages
 > Goal: Build out all public-facing pages, data-driven from the DB.
 
-- [ ] `/about` — Full company story, team section (from `TeamMember` table)
-- [ ] `/products` — Full ecosystem listing, filterable by category
-- [ ] `/products/[slug]` — Dedicated product page (template, data from DB)
-  - [ ] Hero with product logo + tagline
-  - [ ] Features breakdown
-  - [ ] Screenshots
-  - [ ] Link to external product domain
-- [ ] `/careers` — Job listings (from `JobListing` table, `OPEN` only)
-- [ ] `/careers/[id]` — Individual job detail + apply link
-- [ ] `/contact` — Contact form → Resend email + saved to DB
-- [ ] `/press` — Press entries (from `PressEntry` table)
+- [x] `/about` — Full company story, team section (from `TeamMember` table)
+- [x] `/products` — Full ecosystem listing, filterable by category
+- [x] `/products/[slug]` — Dedicated product page (template, data from DB)
+  - [x] Hero with product logo + tagline
+  - [x] Features breakdown
+  - [x] Screenshots
+  - [x] Link to external product domain
+- [x] `/careers` — Job listings (from `JobListing` table, `OPEN` only)
+- [x] `/careers/[id]` — Individual job detail + apply link
+- [x] `/contact` — Contact form → Resend email + saved to DB
+- [x] `/press` — Press entries (from `PressEntry` table)
 
 ---
 
 ## Phase 6 — Product Sub-Pages (Per Product)
 > Goal: Each Koventra product gets its own page on koventrasystems.com.
 
-- [ ] Define product page template (reusable layout)
-- [ ] Build Lex AI page (`/products/lex-ai`)
-- [ ] Add pages for new products as they ship
-- [ ] Each page links out to the product's own domain/app
+- [x] Define product page template (reusable layout)
+- [x] Build Lex AI page (`/products/lex-ai`)
+- [x] Add pages for new products as they ship
+- [x] Each page links out to the product's own domain/app
 
 ---
 

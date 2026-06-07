@@ -1,0 +1,127 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ── ENUMS ──────────────────────────────────────────────
+
+enum ProductStatus {
+  PLANNED
+  BUILDING
+  LIVE
+  ARCHIVED
+}
+
+enum ProductCategory {
+  AI
+  SAAS
+  ENTERPRISE
+  FINTECH
+  OTHER
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+}
+
+enum JobStatus {
+  OPEN
+  CLOSED
+  DRAFT
+}
+
+// ── MODELS ─────────────────────────────────────────────
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String   // bcrypt hashed
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Product {
+  id          String          @id @default(cuid())
+  name        String
+  slug        String          @unique
+  tagline     String?
+  description String?
+  category    ProductCategory @default(OTHER)
+  status      ProductStatus   @default(PLANNED)
+  externalUrl String?
+  logoUrl     String?
+  images      Json            @default("[]")  // string[]
+  features    Json            @default("[]")  // string[]
+  featured    Boolean         @default(false)
+  sortOrder   Int             @default(0)
+  launchedAt  DateTime?
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  bio       String?
+  photoUrl  String?
+  linkedin  String?
+  twitter   String?
+  sortOrder Int      @default(0)
+  visible   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model JobListing {
+  id          String    @id @default(cuid())
+  title       String
+  team        String
+  location    String
+  type        JobType   @default(FULL_TIME)
+  status      JobStatus @default(DRAFT)
+  description String?   // rich text / markdown
+  applyUrl    String?
+  closesAt    DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model PressEntry {
+  id          String   @id @default(cuid())
+  headline    String
+  publication String
+  url         String
+  logoUrl     String?  // publication logo
+  publishedAt DateTime
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  company   String?
+  subject   String?
+  message   String
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,27 @@
+:root {
+  /* Brand */
+  --color-navy:         #080c18;   /* primary background */
+  --color-navy-mid:     #0f1422;   /* section alternates */
+  --color-navy-card:    #131929;   /* card surfaces */
+  --color-navy-hover:   #1a2235;   /* hover states */
+  --color-gold:         #c9a84c;   /* primary accent */
+  --color-gold-dim:     #a8873a;   /* hover/muted gold */
+  --color-gold-pale:    rgba(201,168,76,0.12); /* subtle gold bg */
+
+  /* Text */
+  --color-white:        #f0ede8;   /* primary text */
+  --color-muted:        #7a8ba8;   /* secondary text */
+
+  /* Borders */
+  --color-border:       rgba(201,168,76,0.14);
+  --color-border-dim:   rgba(255,255,255,0.06);
+
+  /* Semantic */
+  --color-live:         #4ade80;   /* product status: live */
+  --color-building:     #f59e0b;   /* product status: in development */
+
+  /* Typography */
+  --font-display:       'Cormorant Garamond', serif;
+  --font-body:          'DM Sans', sans-serif;
+  --font-mono:          'JetBrains Mono', monospace; /* code blocks */
+}
