@@ -71,31 +71,48 @@ export default async function Ecosystem() {
         {products.length === 0 ? (
           <SectionReveal>
             <div className="text-center py-16 border border-border-dim rounded-[8px] bg-navy-card">
-              <p className="font-body text-xs text-muted uppercase tracking-wider">No products in the ecosystem yet.</p>
+              <p className="font-body text-xs text-muted uppercase tracking-wider">
+                No products in the ecosystem yet.
+              </p>
             </div>
           </SectionReveal>
         ) : (
           <div className="space-y-4">
-            {/* Featured products — full width or 2-col */}
+            {/* Featured products — large hero-style cards */}
             {featuredProducts.length > 0 && (
               <SectionReveal>
-                <div className={`grid gap-4 ${featuredProducts.length === 1 ? 'grid-cols-1 md:grid-cols-[1.6fr_1fr]' : 'grid-cols-1 md:grid-cols-2'}`}>
-                  {featuredProducts.map((p, i) => (
-                    <ProductCard key={p.id} product={p} variant="featured" />
-                  ))}
-                  {/* Fill the right column with up to 2 regular products if only 1 featured */}
-                  {featuredProducts.length === 1 && regularProducts.slice(0, 2).map((p) => (
-                    <ProductCard key={p.id} product={p} variant="compact" />
-                  ))}
-                </div>
+                {featuredProducts.length === 1 ? (
+                  /* Single featured: big card + stacked sidebar */
+                  <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-4 items-stretch">
+                    <ProductCard product={featuredProducts[0]} variant="featured" />
+                    {/* Right column: up to 2 regular products stacked */}
+                    {regularProducts.length > 0 && (
+                      <div className="flex flex-col gap-4">
+                        {regularProducts.slice(0, 2).map((p) => (
+                          <div key={p.id} className="flex-1">
+                            <ProductCard product={p} variant="compact" />
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  /* Multiple featured: equal columns */
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {featuredProducts.map((p) => (
+                      <ProductCard key={p.id} product={p} variant="featured" />
+                    ))}
+                  </div>
+                )}
               </SectionReveal>
             )}
 
             {/* Remaining regular products grid */}
             {(() => {
-              const remaining = featuredProducts.length === 1
-                ? regularProducts.slice(2)
-                : regularProducts;
+              const remaining =
+                featuredProducts.length === 1
+                  ? regularProducts.slice(2)
+                  : regularProducts;
 
               if (remaining.length === 0) return null;
 
