@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Edit, Trash, Plus, Search, Eye, EyeOff, Linkedin, Twitter } from 'lucide-react';
+import { Edit, Trash, Plus, Search, Eye, EyeOff, ExternalLink } from 'lucide-react';
 import Badge from '@/components/ui/Badge';
 import Modal from '@/components/ui/Modal';
 import { useRouter } from 'next/navigation';
@@ -140,14 +140,14 @@ export default function TeamListClient({ initialMembers }: { initialMembers: Tea
                       <div className="flex gap-2 text-muted">
                         {member.linkedin ? (
                           <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">
-                            <Linkedin size={14} />
+                            <ExternalLink size={14} />
                           </a>
                         ) : (
                           <span className="opacity-25">-</span>
                         )}
                         {member.twitter ? (
                           <a href={member.twitter} target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors">
-                            <Twitter size={14} />
+                            <ExternalLink size={14} />
                           </a>
                         ) : null}
                       </div>

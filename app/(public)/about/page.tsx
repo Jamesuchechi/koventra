@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import { Linkedin, Twitter } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { TeamMember } from '@prisma/client';
 import prisma from '@/lib/prisma';
 import { getSiteSettings } from '@/lib/settings';
@@ -161,7 +161,7 @@ export default async function AboutPage() {
                         className="text-muted hover:text-white transition-colors"
                         aria-label={`${member.name}'s LinkedIn`}
                       >
-                        <Linkedin size={16} />
+                        <ExternalLink size={16} />
                       </a>
                     )}
                     {member.twitter && (
@@ -172,7 +172,7 @@ export default async function AboutPage() {
                         className="text-muted hover:text-white transition-colors"
                         aria-label={`${member.name}'s Twitter`}
                       >
-                        <Twitter size={16} />
+                        <ExternalLink size={16} />
                       </a>
                     )}
                     {!member.linkedin && !member.twitter && (
