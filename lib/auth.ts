@@ -1,38 +1,31 @@
 import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 import Credentials from 'next-auth/providers/credentials';
-import prisma from './prisma';
-import bcrypt from 'bcrypt';
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
+      name: 'Admin Password',
+      credentials: {
+        password: { label: 'Password', type: 'password' },
+      },
       async authorize(credentials) {
-        if (!credentials?.email || !credentials?.password) {
+        const password = credentials?.password as string | undefined;
+        const expectedPassword = process.env.ADMIN_PASSWORD;
+
+        if (!expectedPassword || !password) {
+          console.error('Missing admin password configuration or password was not provided.');
           return null;
         }
 
-        const email = credentials.email as string;
-        const password = credentials.password as string;
-
-        const user = await prisma.adminUser.findUnique({
-          where: { email },
-        });
-
-        if (!user) {
-          return null;
-        }
-
-        const isValid = await bcrypt.compare(password, user.password);
-        if (!isValid) {
+        if (password !== expectedPassword) {
           return null;
         }
 
         return {
-          id: user.id,
-          email: user.email,
-          name: user.name,
+          id: 'admin',
+          name: 'Administrator',
         };
       },
     }),

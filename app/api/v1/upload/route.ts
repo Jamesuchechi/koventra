@@ -53,13 +53,20 @@ export async function POST(req: NextRequest) {
         cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
         api_key: process.env.CLOUDINARY_API_KEY,
         api_secret: process.env.CLOUDINARY_API_SECRET,
+        secure: true,
       });
+
+      const cloudinaryTimeout = Number(process.env.CLOUDINARY_UPLOAD_TIMEOUT || 120000);
 
       // Helper to stream buffer to Cloudinary
       const uploadToCloudinary = (buffer: Buffer) =>
         new Promise<any>((resolve, reject) => {
           const uploadStream = cloudinary.uploader.upload_stream(
-            { folder: 'koventra_uploads', resource_type: 'auto' },
+            {
+              folder: 'koventra_uploads',
+              resource_type: 'auto',
+              timeout: cloudinaryTimeout,
+            },
             (error, result) => {
               if (error) return reject(error);
               resolve(result);

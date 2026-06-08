@@ -13,9 +13,19 @@ export const dynamic = 'auto';
 export const revalidate = 60;
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const { slug } = params;
+
   const product = await prisma.product.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   });
+
+  if (!product || product.status === 'ARCHIVED') {
+    return buildMetadata({
+      title: 'Product Not Found',
+      description: 'The requested product is unavailable in the Koventra Systems ecosystem.',
+      pathname: `/products/${slug}`,
+    });
+  }
 
   if (!product || product.status === 'ARCHIVED') {
     return buildMetadata({
@@ -34,11 +44,15 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 interface ProductDetailPageProps {
-  params: Promise<{ slug: string }>;
+  params: { slug: string };
 }
 
 export default async function ProductDetailPage({ params }: ProductDetailPageProps) {
-  const { slug } = await params;
+  const { slug } = params;
+
+  if (!slug) {
+    notFound();
+  }
 
   // Retrieve product by slug from the database
   let product: DBProduct | null = null;

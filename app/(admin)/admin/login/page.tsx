@@ -7,7 +7,6 @@ import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -17,21 +16,20 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
 
-    if (!email || !password) {
-      setError('Please fill in all fields.');
+    if (!password) {
+      setError('Please enter the admin password.');
       setLoading(false);
       return;
     }
 
     try {
       const result = await signIn('credentials', {
-        email,
         password,
         redirect: false,
       });
 
       if (result?.error) {
-        setError('Invalid email or password.');
+        setError('Invalid admin password.');
       } else {
         router.refresh();
         router.push('/admin');
@@ -76,21 +74,7 @@ export default function LoginPage() {
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
           <label className="block font-body text-[0.72rem] tracking-[0.15em] uppercase text-muted mb-2 font-medium">
-            Email Address
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            disabled={loading}
-            className="w-full px-4 py-3 bg-navy border border-border-dim rounded-[2px] font-body text-sm text-white focus:outline-none focus:border-gold transition-colors duration-200"
-            placeholder="admin@koventrasystems.com"
-          />
-        </div>
-
-        <div>
-          <label className="block font-body text-[0.72rem] tracking-[0.15em] uppercase text-muted mb-2 font-medium">
-            Password
+            Admin Password
           </label>
           <input
             type="password"
@@ -98,7 +82,7 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             disabled={loading}
             className="w-full px-4 py-3 bg-navy border border-border-dim rounded-[2px] font-body text-sm text-white focus:outline-none focus:border-gold transition-colors duration-200"
-            placeholder="••••••••"
+            placeholder="Enter admin password"
           />
         </div>
 

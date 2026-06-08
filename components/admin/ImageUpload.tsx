@@ -19,6 +19,20 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
     secure_url?: string | null;
   } | null>(null);
 
+  const isValidImageSrc = (src: string) => {
+    if (!src) return false;
+    if (src.startsWith('/') || src.startsWith('http://') || src.startsWith('https://')) {
+      return true;
+    }
+
+    try {
+      new URL(src);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -40,9 +54,9 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
       if (!res.ok) {
         setError(data.error || 'Failed to upload image.');
       } else {
-        // Save extra metadata for UI and propagate URL to parent
+        const uploadedUrl = data.secure_url || data.url || '';
         setInfo({ url: data.url || null, public_id: data.public_id || null, secure_url: data.secure_url || null });
-        onChange(data.url);
+        onChange(uploadedUrl);
       }
     } catch (err) {
       setError('Upload error occurred.');
@@ -50,6 +64,9 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
       setLoading(false);
     }
   };
+
+  const previewSrc = info?.secure_url || info?.url || value;
+  const canPreview = typeof previewSrc === 'string' && isValidImageSrc(previewSrc);
 
   return (
     <div className="space-y-2">
@@ -62,12 +79,18 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
       {value ? (
         <>
           <div className="relative w-32 h-32 rounded-[2px] border border-border overflow-hidden bg-navy group">
-            <Image
-              src={value}
-              alt="Preview"
-              fill
-              className="object-cover"
-            />
+            {canPreview ? (
+              <Image
+                src={previewSrc}
+                alt="Preview"
+                fill
+                className="object-cover"
+              />
+            ) : (
+              <div className="flex items-center justify-center w-full h-full text-[11px] text-muted p-3 text-center">
+                Invalid image URL
+              </div>
+            )}
             <button
               type="button"
               onClick={() => { onChange(''); setInfo(null); }}
@@ -80,7 +103,7 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
           {(info?.url || value) && (
             <div className="flex items-center gap-2">
               <a
-                href={info?.url || value}
+                href={isValidImageSrc(info?.url || value) ? (info?.url || value) : '#'}
                 target="_blank"
                 rel="noreferrer"
                 className="text-[11px] text-muted truncate max-w-[200px] block"

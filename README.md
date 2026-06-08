@@ -752,16 +752,13 @@ export const config = {
 Write operations (`POST`, `PATCH`, `DELETE`) on all `/api/v1/` routes verify the
 session. `GET` requests on public resources do not require auth.
 
-### Creating an Admin User
+### Admin Access
 
-Admin users are created via the seed script or a one-time CLI command — there is
-intentionally no public registration:
+The admin panel uses a single shared admin password configured via the
+`ADMIN_PASSWORD` environment variable. No email or public account registration is
+required.
 
-```bash
-npx tsx scripts/create-admin.ts --email admin@koventrasystems.com
-```
-
-This prompts for a password, hashes it, and inserts the record.
+Visit `/admin/login` and enter the admin password to sign in.
 
 ---
 
