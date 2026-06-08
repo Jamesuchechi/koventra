@@ -17,13 +17,13 @@
 ## Phase 1 — HTML Prototype Refinement
 > Goal: Finalize the look, copy, and layout before touching any framework.
 
-- [ ] Replace placeholder product names with real Koventra products
-- [ ] Write real hero tagline and mission statement
-- [ ] Add Koventra logo (SVG or font-based wordmark)
-- [ ] Add real contact email and social links
-- [ ] Finalize product card content (name, description, tag, link)
-- [ ] Review on mobile (add responsive CSS breakpoints)
-- [ ] Get stakeholder sign-off on design
+- [x] Replace placeholder product names with real Koventra products
+- [x] Write real hero tagline and mission statement
+- [x] Add Koventra logo (SVG or font-based wordmark)
+- [x] Add real contact email and social links
+- [x] Finalize product card content (name, description, tag, link)
+- [x] Review on mobile (add responsive CSS breakpoints)
+- [x] Get stakeholder sign-off on design
 
 ---
 
@@ -160,13 +160,14 @@
 ## Phase 8 — SEO & Performance
 > Goal: Make sure Koventra ranks and loads fast.
 
-- [ ] Add `<meta>` tags per page (title, description, og:image)
-- [ ] Create `sitemap.xml` (via next-sitemap)
-- [ ] Create `robots.txt`
-- [ ] Add structured data (JSON-LD for Organization)
-- [ ] Optimize all images with `next/image`
-- [ ] Lighthouse audit — target 90+ on all scores
-- [ ] Set up Google Analytics or Plausible
+- [x] Add default site metadata in `app/layout.tsx`
+- [x] Add page-specific metadata per page (title, description, og:image)
+- [x] Create `sitemap.xml` via `app/sitemap.ts`
+- [x] Create `robots.txt`
+- [x] Add structured data (JSON-LD for Organization)
+- [x] Optimize all images with `next/image`
+- [x] Lighthouse audit — target 90+ on all scores
+- [x] Set up Google Analytics or Plausible (code injected if env is configured)
 
 ---
 

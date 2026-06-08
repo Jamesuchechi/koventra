@@ -36,7 +36,7 @@ export default function ProductCard({ product, variant = 'default' }: ProductCar
       style={{ fontSize: '1rem' }}
     >
       {logoUrl && (logoUrl.startsWith('/') || logoUrl.startsWith('http')) ? (
-        <Image src={logoUrl} alt={name} fill unoptimized className="object-cover" />
+        <Image src={logoUrl} alt={name} fill className="object-cover" />
       ) : (
         <span className="font-display text-gold font-light text-[1rem]">
           {(logoUrl || name).substring(0, 2).toUpperCase()}

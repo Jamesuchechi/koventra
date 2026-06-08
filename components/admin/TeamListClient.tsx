@@ -118,7 +118,6 @@ export default function TeamListClient({ initialMembers }: { initialMembers: Tea
                           alt={member.name}
                           width={32}
                           height={32}
-                          unoptimized
                           className="w-8 h-8 rounded-full object-cover border border-border"
                         />
                       ) : (

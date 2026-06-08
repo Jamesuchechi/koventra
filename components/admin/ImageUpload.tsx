@@ -13,6 +13,11 @@ interface ImageUploadProps {
 export default function ImageUpload({ value, onChange, label }: ImageUploadProps) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [info, setInfo] = useState<{
+    url?: string | null;
+    public_id?: string | null;
+    secure_url?: string | null;
+  } | null>(null);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -35,6 +40,8 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
       if (!res.ok) {
         setError(data.error || 'Failed to upload image.');
       } else {
+        // Save extra metadata for UI and propagate URL to parent
+        setInfo({ url: data.url || null, public_id: data.public_id || null, secure_url: data.secure_url || null });
         onChange(data.url);
       }
     } catch (err) {
@@ -53,22 +60,53 @@ export default function ImageUpload({ value, onChange, label }: ImageUploadProps
       )}
 
       {value ? (
-        <div className="relative w-32 h-32 rounded-[2px] border border-border overflow-hidden bg-navy group">
-          <Image
-            src={value}
-            alt="Preview"
-            fill
-            unoptimized
-            className="object-cover"
-          />
-          <button
-            type="button"
-            onClick={() => onChange('')}
-            className="absolute top-1.5 right-1.5 p-1 bg-navy/80 hover:bg-red-600 rounded-full text-white transition-colors duration-200"
-          >
-            <X size={14} />
-          </button>
-        </div>
+        <>
+          <div className="relative w-32 h-32 rounded-[2px] border border-border overflow-hidden bg-navy group">
+            <Image
+              src={value}
+              alt="Preview"
+              fill
+              className="object-cover"
+            />
+            <button
+              type="button"
+              onClick={() => { onChange(''); setInfo(null); }}
+              className="absolute top-1.5 right-1.5 p-1 bg-navy/80 hover:bg-red-600 rounded-full text-white transition-colors duration-200"
+            >
+              <X size={14} />
+            </button>
+          </div>
+
+          {(info?.url || value) && (
+            <div className="flex items-center gap-2">
+              <a
+                href={info?.url || value}
+                target="_blank"
+                rel="noreferrer"
+                className="text-[11px] text-muted truncate max-w-[200px] block"
+              >
+                {info?.url || value}
+              </a>
+              <button
+                type="button"
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText((info?.url || value) as string);
+                  } catch (e) {
+                    // ignore clipboard errors
+                  }
+                }}
+                className="text-[11px] text-gold underline"
+              >
+                Copy
+              </button>
+            </div>
+          )}
+
+          {info?.public_id && (
+            <div className="text-[10px] text-muted">ID: {info.public_id}</div>
+          )}
+        </>
       ) : (
         <label className="flex flex-col items-center justify-center w-32 h-32 border border-dashed border-border-dim hover:border-gold rounded-[2px] cursor-pointer bg-navy transition-colors duration-200">
           {loading ? (

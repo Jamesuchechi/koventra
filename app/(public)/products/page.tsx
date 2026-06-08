@@ -4,8 +4,15 @@ import prisma from '@/lib/prisma';
 import { Product, ProductCategory, ProductStatus } from '@/lib/types';
 import ProductsListClient from '@/components/public/ProductsListClient';
 import SectionReveal from '@/components/ui/SectionReveal';
+import { buildMetadata } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'auto';
+export const revalidate = 60;
+export const metadata = buildMetadata({
+  title: 'Products',
+  description: 'Browse the Koventra Systems product portfolio and active ventures.',
+  pathname: '/products',
+});
 
 export default async function ProductsPage() {
   // Query all active products

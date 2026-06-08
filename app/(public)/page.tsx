@@ -4,8 +4,15 @@ import Mission from '@/components/sections/Mission';
 import Ecosystem from '@/components/sections/Ecosystem';
 import WhyKoventra from '@/components/sections/WhyKoventra';
 import CTABand from '@/components/sections/CTABand';
+import { buildMetadata } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'auto';
+export const revalidate = 60;
+export const metadata = buildMetadata({
+  title: 'Brand Hub & Product Ecosystem',
+  description: 'The parent organization and ecosystem portal for Koventra Systems portfolio products.',
+  pathname: '/',
+});
 
 export default function Home() {
   return (

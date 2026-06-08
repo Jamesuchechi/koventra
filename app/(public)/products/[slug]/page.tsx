@@ -7,8 +7,31 @@ import { Product as DBProduct } from '@prisma/client';
 import prisma from '@/lib/prisma';
 import SectionReveal from '@/components/ui/SectionReveal';
 import SectionTag from '@/components/ui/SectionTag';
+import { buildMetadata } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'auto';
+export const revalidate = 60;
+
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  const product = await prisma.product.findUnique({
+    where: { slug: params.slug },
+  });
+
+  if (!product || product.status === 'ARCHIVED') {
+    return buildMetadata({
+      title: 'Product Not Found',
+      description: 'The requested product is unavailable in the Koventra Systems ecosystem.',
+      pathname: `/products/${params.slug}`,
+    });
+  }
+
+  return buildMetadata({
+    title: product.name,
+    description: product.description ?? product.tagline ?? `Explore ${product.name} from Koventra Systems.`,
+    pathname: `/products/${params.slug}`,
+    ogImageUrl: product.logoUrl ?? undefined,
+  });
+}
 
 interface ProductDetailPageProps {
   params: Promise<{ slug: string }>;
@@ -83,7 +106,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                     src={product.logoUrl}
                     alt={product.name}
                     fill
-                    unoptimized
                     className="object-cover"
                   />
                 ) : (
@@ -151,7 +173,6 @@ export default async function ProductDetailPage({ params }: ProductDetailPagePro
                       src={screen}
                       alt={`${product.name} Screenshot ${idx + 1}`}
                       fill
-                      unoptimized
                       className="object-cover hover:scale-[1.02] transition-transform duration-300"
                     />
                   </div>

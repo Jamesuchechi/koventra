@@ -51,22 +51,20 @@ export default function LoginPage() {
       {/* Brand Wordmark with Logo */}
       <div className="text-center mb-8 flex flex-col items-center">
         <div className="relative w-16 h-16 rounded-[8px] border border-border bg-gold/5 flex items-center justify-center overflow-hidden mb-4 select-none">
-          <Image
-            src="/logo.png"
-            alt="Koventra Systems Logo"
-            fill
-            unoptimized
-            className="object-cover scale-[1.35]"
-          />
+            <Image
+              src="/logo.png"
+              alt="Koventra Systems Logo"
+              fill
+              className="object-cover scale-[1.35]"
+            />
+          </div>
+          <h1 className="font-display text-3xl font-light text-white mb-2 tracking-wide">
+            Koventra Systems
+          </h1>
+          <p className="font-body text-[0.78rem] text-muted tracking-[0.12em] uppercase">
+            Administration Portal
+          </p>
         </div>
-        <h1 className="font-display text-3xl font-light text-white mb-2 tracking-wide">
-          Koventra Systems
-        </h1>
-        <p className="font-body text-[0.78rem] text-muted tracking-[0.12em] uppercase">
-          Administration Portal
-        </p>
-      </div>
-
       {/* Error Message */}
       {error && (
         <div className="p-3 mb-6 bg-red-500/10 border border-red-500/30 rounded-[2px] text-red-400 text-xs font-body tracking-wide">

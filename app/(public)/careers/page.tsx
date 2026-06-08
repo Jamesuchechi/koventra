@@ -4,8 +4,15 @@ import prisma from '@/lib/prisma';
 import { JobListing, JobStatus, JobType } from '@/lib/types';
 import CareersListClient from '@/components/public/CareersListClient';
 import SectionReveal from '@/components/ui/SectionReveal';
+import { buildMetadata } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'auto';
+export const revalidate = 60;
+export const metadata = buildMetadata({
+  title: 'Careers',
+  description: 'Discover open roles at Koventra Systems across engineering, operations, and product teams.',
+  pathname: '/careers',
+});
 
 export default async function CareersPage() {
   // Query all OPEN jobs

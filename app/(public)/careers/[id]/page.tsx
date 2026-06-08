@@ -6,8 +6,30 @@ import { JobListing as DBJob } from '@prisma/client';
 import prisma from '@/lib/prisma';
 import SectionReveal from '@/components/ui/SectionReveal';
 import SectionTag from '@/components/ui/SectionTag';
+import { buildMetadata } from '@/lib/seo';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'auto';
+export const revalidate = 60;
+
+export async function generateMetadata({ params }: { params: { id: string } }) {
+  const job = await prisma.jobListing.findUnique({
+    where: { id: params.id },
+  });
+
+  if (!job || job.status !== 'OPEN') {
+    return buildMetadata({
+      title: 'Job Not Found',
+      description: 'This career opportunity is not currently available.',
+      pathname: `/careers/${params.id}`,
+    });
+  }
+
+  return buildMetadata({
+    title: `${job.title} | ${job.team}`,
+    description: job.description ? job.description.slice(0, 160) : `Apply for ${job.title} at Koventra Systems.`,
+    pathname: `/careers/${params.id}`,
+  });
+}
 
 interface JobDetailPageProps {
   params: Promise<{ id: string }>;

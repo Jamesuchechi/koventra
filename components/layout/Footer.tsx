@@ -83,7 +83,7 @@ export default function Footer() {
           <div className="space-y-5">
             <Link href="/" className="flex items-center gap-2.5 select-none group">
               <div className="relative w-7 h-7 rounded-[5px] overflow-hidden border border-gold/20 bg-gold/5 shrink-0">
-                <Image src="/logo.png" alt="Koventra" fill unoptimized className="object-cover scale-[1.35]" />
+                <Image src="/logo.png" alt="Koventra" fill className="object-cover scale-[1.35]" />
               </div>
               <span className="font-display text-[1.3rem] font-medium tracking-[0.04em] text-white">
                 Koventra<span className="text-gold">.</span>

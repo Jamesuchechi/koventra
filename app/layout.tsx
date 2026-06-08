@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import Script from 'next/script';
 import localFont from 'next/font/local';
 import '../styles/globals.css';
+import { buildMetadata, getOrganizationSchema } from '@/lib/seo';
 
 const displayFont = localFont({
   src: [
@@ -34,15 +36,10 @@ const bodyFont = localFont({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'Koventra Systems — Brand Hub & Product Ecosystem',
-  description: 'The parent organization and ecosystem portal for Koventra Systems portfolio products.',
-  icons: {
-    icon: '/icon.png',
-    apple: '/icon.png',
-  },
-};
+export const metadata: Metadata = buildMetadata();
 
+const organizationSchema = getOrganizationSchema();
+const plausibleDomain = process.env.NEXT_PUBLIC_PLAUSIBLE_DOMAIN;
 
 export default function RootLayout({
   children,
@@ -52,6 +49,17 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${displayFont.variable} ${bodyFont.variable}`}>
       <body className="antialiased bg-navy text-white min-h-screen flex flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+        />
+        {plausibleDomain && (
+          <Script
+            src="https://plausible.io/js/plausible.js"
+            strategy="afterInteractive"
+            data-domain={plausibleDomain}
+          />
+        )}
         {children}
       </body>
     </html>

@@ -13,6 +13,7 @@ export default function AdminLayout({
 }) {
   const pathname = usePathname();
   const isLoginPage = pathname === '/admin/login';
+  const [sidebarOpen, setSidebarOpen] = React.useState(false);
 
   if (isLoginPage) {
     return (
@@ -28,12 +29,12 @@ export default function AdminLayout({
     <SessionProvider>
       <div className="flex min-h-screen bg-navy text-white font-body">
         {/* Sidebar Navigation */}
-        <AdminSidebar />
+        <AdminSidebar mobileOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
         {/* Content Panel */}
         <div className="flex-grow flex flex-col min-w-0">
           {/* Header */}
-          <AdminTopbar />
+          <AdminTopbar onOpenSidebar={() => setSidebarOpen(true)} />
 
           {/* Body */}
           <main className="flex-grow p-8 overflow-y-auto bg-navy-mid">

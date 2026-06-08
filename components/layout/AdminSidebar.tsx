@@ -15,6 +15,11 @@ import {
   Globe,
 } from 'lucide-react';
 
+interface AdminSidebarProps {
+  mobileOpen?: boolean;
+  onClose?: () => void;
+}
+
 const MENU_ITEMS = [
   { label: 'Dashboard', href: '/admin', icon: LayoutDashboard },
   { label: 'Products', href: '/admin/products', icon: Package },
@@ -24,11 +29,21 @@ const MENU_ITEMS = [
   { label: 'Settings', href: '/admin/settings', icon: Settings },
 ];
 
-export default function AdminSidebar() {
+export default function AdminSidebar({ mobileOpen = false, onClose }: AdminSidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-navy-card border-r border-border min-h-screen flex flex-col justify-between select-none">
+    <>
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 z-30 bg-black/40 lg:hidden"
+          onClick={onClose}
+        />
+      )}
+
+      <aside
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-navy-card border-r border-border min-h-screen flex flex-col justify-between select-none transform transition-transform duration-300 ease-out lg:static lg:translate-x-0 lg:flex ${mobileOpen ? 'translate-x-0' : '-translate-x-full'}`}
+      >
       <div>
         {/* Logo / Header */}
         <div className="h-16 flex items-center px-6 border-b border-border bg-navy/50">
@@ -83,5 +98,6 @@ export default function AdminSidebar() {
         </button>
       </div>
     </aside>
+  </>
   );
 }

@@ -3,10 +3,17 @@ import Image from 'next/image';
 import { ExternalLink, Calendar } from 'lucide-react';
 import { PressEntry as DBPress } from '@prisma/client';
 import prisma from '@/lib/prisma';
+import { buildMetadata } from '@/lib/seo';
 import SectionReveal from '@/components/ui/SectionReveal';
 import SectionTag from '@/components/ui/SectionTag';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'auto';
+export const revalidate = 60;
+export const metadata = buildMetadata({
+  title: 'Press & Media',
+  description: 'Read the latest Koventra Systems press coverage, releases, and media announcements.',
+  pathname: '/press',
+});
 
 export default async function PressPage() {
   // Query all press entries ordered by published date descending
@@ -75,7 +82,6 @@ export default async function PressPage() {
                             src={entry.logoUrl}
                             alt={entry.publication}
                             fill
-                            unoptimized
                             className="object-contain object-left filter opacity-60 group-hover:opacity-100 transition-opacity"
                           />
                         </div>

@@ -4,10 +4,21 @@ import { Linkedin, Twitter } from 'lucide-react';
 import { TeamMember } from '@prisma/client';
 import prisma from '@/lib/prisma';
 import { getSiteSettings } from '@/lib/settings';
+import { buildMetadata } from '@/lib/seo';
 import SectionReveal from '@/components/ui/SectionReveal';
 import SectionTag from '@/components/ui/SectionTag';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = 'auto';
+export const revalidate = 60;
+
+export async function generateMetadata() {
+  const settings = await getSiteSettings();
+  return buildMetadata({
+    title: 'About',
+    description: settings.missionParagraph1,
+    pathname: '/about',
+  });
+}
 
 export default async function AboutPage() {
   const settings = await getSiteSettings();
@@ -115,7 +126,6 @@ export default async function AboutPage() {
                           src={member.photoUrl}
                           alt={member.name}
                           fill
-                          unoptimized
                           className="object-cover"
                         />
                       ) : (
