@@ -14,4 +14,3 @@ export default async function Hero() {
 
   return <HeroClient settings={settings} stats={stats} />;
 }
-
