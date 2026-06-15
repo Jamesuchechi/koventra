@@ -4,6 +4,7 @@ import Mission from '@/components/sections/Mission';
 import Ecosystem from '@/components/sections/Ecosystem';
 import WhyKoventra from '@/components/sections/WhyKoventra';
 import CTABand from '@/components/sections/CTABand';
+import StickyStackContainer from '@/components/layout/StickyStackContainer';
 import { buildMetadata } from '@/lib/seo';
 
 export const dynamic = 'auto';
@@ -17,11 +18,13 @@ export const metadata = buildMetadata({
 export default function Home() {
   return (
     <main className="min-h-screen bg-navy">
-      <Hero />
-      <Mission />
-      <Ecosystem />
-      <WhyKoventra />
-      <CTABand />
+      <StickyStackContainer navHeight={90}>
+        <Hero />
+        <Mission />
+        <Ecosystem />
+        <WhyKoventra />
+        <CTABand />
+      </StickyStackContainer>
     </main>
   );
 }
