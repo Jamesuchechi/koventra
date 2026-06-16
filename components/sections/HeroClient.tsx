@@ -34,90 +34,86 @@ export default function HeroClient({ settings, stats }: HeroClientProps) {
 
   return (
     <section ref={sectionRef} className="bg-navy overflow-hidden">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.96, y: 50, borderRadius: '40px' }}
+        animate={{ opacity: 1, scale: 1, y: 0, borderRadius: '28px' }}
+        transition={{ duration: 0.95, ease, delay: 0.1 }}
+        className="relative mx-auto w-full max-w-[1400px] overflow-hidden rounded-[28px] border border-border-dim bg-navy/95 shadow-[0_40px_80px_rgba(0,0,0,0.32)]"
+      >
+        <div className="relative pt-40 pb-24 px-[6vw]">
 
-      {/* ══════════════════════════════════════════════
-          TOP AREA — left headline + right description
-          (mirrors Anthropic's exact layout)
-      ══════════════════════════════════════════════ */}
-      <div className="relative pt-40 pb-24 px-[6vw] max-w-[1400px] mx-auto">
+          {/* Subtle top-right glow */}
+          <div
+            className="pointer-events-none absolute top-0 right-0 w-[600px] h-[500px] opacity-[0.07]"
+            style={{ background: 'radial-gradient(ellipse 70% 60% at 100% 0%, #c9a84c, transparent 70%)' }}
+          />
 
-        {/* Subtle top-right glow */}
-        <div
-          className="pointer-events-none absolute top-0 right-0 w-[600px] h-[500px] opacity-[0.07]"
-          style={{ background: 'radial-gradient(ellipse 70% 60% at 100% 0%, #c9a84c, transparent 70%)' }}
-        />
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.55fr] gap-12 lg:gap-24 items-end">
 
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_0.55fr] gap-12 lg:gap-24 items-end">
-
-          {/* LEFT — big headline */}
-          <div>
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease, delay: 0.05 }}
-              className="font-body text-[0.72rem] tracking-[0.26em] uppercase text-gold font-medium mb-7 flex items-center gap-3"
-            >
-              <span className="h-px w-6 bg-gold/50 inline-block" />
-              {settings.heroEyebrow}
-            </motion.p>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 28 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.9, ease, delay: 0.12 }}
-              className="font-display font-light text-white leading-[1.0] tracking-[-0.02em]"
-              style={{ fontSize: 'clamp(3.6rem, 7.5vw, 8rem)' }}
-            >
-              {lead}{' '}
-              <em className="text-gold" style={{ fontStyle: 'italic' }}>
-                {lastWord}
-              </em>
-            </motion.h1>
-          </div>
-
-          {/* RIGHT — description + CTAs (sits bottom-aligned with headline) */}
-          <motion.div
-            initial={{ opacity: 0, y: 22 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.85, ease, delay: 0.32 }}
-            className="space-y-7 pb-2"
-          >
-            <p className="font-body text-[1rem] text-muted font-light leading-[1.9]">
-              {settings.heroSubtitle}
-            </p>
-
-            <div className="flex flex-wrap items-center gap-3">
-              <Link
-                href="https://ailex.space"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white text-navy font-body text-[0.82rem] font-medium rounded-[5px] hover:bg-white/90 active:scale-[0.98] transition-all duration-150"
+            {/* LEFT — big headline */}
+            <div>
+              <motion.p
+                initial={{ opacity: 0, y: 14 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease, delay: 0.05 }}
+                className="font-body text-[0.72rem] tracking-[0.26em] uppercase text-gold font-medium mb-7 flex items-center gap-3"
               >
-                Try Lex AI
-                <ArrowUpRight size={14} />
-              </Link>
-              <Link
-                href="/products"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-white/[0.16] text-white font-body text-[0.82rem] font-light rounded-[5px] hover:border-white/35 hover:bg-white/[0.04] active:scale-[0.98] transition-all duration-150"
+                <span className="h-px w-6 bg-gold/50 inline-block" />
+                {settings.heroEyebrow}
+              </motion.p>
+
+              <motion.h1
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.9, ease, delay: 0.12 }}
+                className="font-display font-light text-white leading-[1.0] tracking-[-0.02em]"
+                style={{ fontSize: 'clamp(3.6rem, 7.5vw, 8rem)' }}
               >
-                Explore Ecosystem
-              </Link>
+                {lead}{' '}
+                <em className="text-gold" style={{ fontStyle: 'italic' }}>
+                  {lastWord}
+                </em>
+              </motion.h1>
             </div>
-          </motion.div>
-        </div>
-      </div>
 
-      {/* ══════════════════════════════════════════════
-          FEATURED CARD — scroll-driven expansion
-          Starts slightly smaller, grows to full width
-          as it scrolls into the viewport
-      ══════════════════════════════════════════════ */}
-      <div className="px-[3vw] pb-0 overflow-hidden">
-        <motion.div
-          ref={featuredRef}
-          style={{ scale: cardScale, opacity: cardOpacity, y: cardY }}
-          className="relative w-full min-h-[70vh] rounded-t-[16px] overflow-hidden bg-navy-hover border border-border-dim border-b-0 origin-bottom"
-        >
+            {/* RIGHT — description + CTAs (sits bottom-aligned with headline) */}
+            <motion.div
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.85, ease, delay: 0.32 }}
+              className="space-y-7 pb-2"
+            >
+              <p className="font-body text-[1rem] text-muted font-light leading-[1.9]">
+                {settings.heroSubtitle}
+              </p>
+
+              <div className="flex flex-wrap items-center gap-3">
+                <Link
+                  href="https://ailex.space"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 bg-white text-navy font-body text-[0.82rem] font-medium rounded-[5px] hover:bg-white/90 active:scale-[0.98] transition-all duration-150"
+                >
+                  Try Lex AI
+                  <ArrowUpRight size={14} />
+                </Link>
+                <Link
+                  href="/products"
+                  className="inline-flex items-center gap-2 px-6 py-3 border border-white/[0.16] text-white font-body text-[0.82rem] font-light rounded-[5px] hover:border-white/35 hover:bg-white/[0.04] active:scale-[0.98] transition-all duration-150"
+                >
+                  Explore Ecosystem
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+
+        <div className="px-[3vw] pb-0 overflow-hidden">
+          <motion.div
+            ref={featuredRef}
+            style={{ scale: cardScale, opacity: cardOpacity, y: cardY }}
+            className="relative w-full min-h-[70vh] rounded-t-[16px] overflow-hidden bg-navy-hover border border-border-dim border-b-0 origin-bottom"
+          >
           {/* Card ambient atmosphere */}
           <div
             className="absolute inset-0 pointer-events-none"
@@ -285,7 +281,7 @@ export default function HeroClient({ settings, stats }: HeroClientProps) {
           </div>
         </motion.div>
       </div>
-
+    </motion.div>
     </section>
   );
 }
